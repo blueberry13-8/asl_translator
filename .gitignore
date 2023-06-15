@@ -1,2 +1,3 @@
 wlasl_dataset/
 .idea/
+*/__pycache__/

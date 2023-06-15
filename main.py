@@ -33,7 +33,8 @@ def load_dataset():
 
 
 if __name__ == '__main__':
-    # webcum()
-    dataset = load_dataset()
-    print(dataset[0])
+    webcum()
+    
+    #dataset = load_dataset()
+    #print(dataset[0])
     # TODO: remove video's path from dataset return. It was added for debugging
