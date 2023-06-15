@@ -1,6 +1,6 @@
 import json
 
-
+# SELECT CLASSES TO EXTRACT!
 classes_to_extract = ["help", "love", "hello", "people", "thank you", "remember"]
 
 class_file = open("wlasl_class_list.txt", "r")
