@@ -6,13 +6,15 @@ import json
 from cvzone.HandTrackingModule import HandDetector
 from cvzone.PoseModule import PoseDetector
 
-videos_root = "./wlasl_dataset/videos"
-result_root = "./point_arrays"
+videos_root = "./custom_dataset/videos"
+result_root = "./custom_dataset/hands_point_arrays"
 hands_detector = HandDetector()
 pose_detector = PoseDetector()
 
+IGNORE_NO_HANDS = False # an important thing!
 
-videos_js = json.load(open("./wlasl_dataset/nslt_100.json"))
+
+videos_js = json.load(open("./custom_dataset/custom_dataset.json"))
 
 video_names = [name for name in os.listdir(videos_root)]
 
@@ -47,7 +49,16 @@ for name in bar:
                 for j in range(len(hand_points)):
                     for k in range(3):
                         points[ind_shift + j * 3 + k] = hand_points[j][k]
-
+            
+            # Check if no hands detected
+            if IGNORE_NO_HANDS == True:
+                all_zeros = True
+                for i in range(0, 21*3*2):
+                    if points[i] != 0:
+                        all_zeros = False
+                        break
+                if all_zeros == True:
+                    continue
             # Recognize the pose and collect points
             img2 = pose_detector.findPose(frame)
             lmList, bboxInfo = pose_detector.findPosition(frame, bboxWithHands=False)
